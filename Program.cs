@@ -12,10 +12,5 @@ namespace ASC_Automat_Vanzari
         {
 
         }
-
-        static void AState ()
-        static void BState ()
-        static void CState ()
-        static void DState()
     }
 }
