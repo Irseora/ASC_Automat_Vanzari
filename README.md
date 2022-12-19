@@ -1,6 +1,6 @@
-# ASC_Automat_Vanzari
+# ASC - Automat Vanzari
  
-Se da un automat de vanzari definit de diagrama de mai jos:
+Se da un automat de vanzari definit de diagrama de mai jos:  
 ![State Map](StateMap.png)
    
 Scrieti un program C# care sa modeleze functionarea acestui automat.  
