@@ -1,7 +1,7 @@
 # ASC_Automat_Vanzari
  
 Se da un automat de vanzari definit de diagrama de mai jos:
-![State Map](https://e.uoradea.ro/pluginfile.php/785106/mod_assign/intro/vending.png)
+![State Map](StateMap.png)
    
 Scrieti un program C# care sa modeleze functionarea acestui automat.  
 
