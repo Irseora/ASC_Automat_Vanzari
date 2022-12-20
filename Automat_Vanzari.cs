@@ -3,9 +3,10 @@ using System;
 namespace Automat_Vanzari
 {
     /// <summary>
-    /// <para> Context </para>
+    /// <para> Context: </para>
     /// <para> References a concrete state </para>
     /// <para> Delegates all state-specific work to it, through the state interface </para>
+    /// <para> Handles transitions and non-state-specific tasks </para>
     /// </summary>
     class Context
     {
@@ -23,17 +24,7 @@ namespace Automat_Vanzari
             currentState.SetContext(this);
         }
 
-        // State-specific behavior delegated to current state object
-        public void InsertNickel()  // Request
-        { currentState.NickelInserted(); }  // Handle
-
-        public void InsertDime()
-        { currentState.DimeInserted(); }
-
-        public void InsertQuarter()
-        { currentState.QuarterInserted(); }
-
-        /// <summary> Shows / refreshes UI</summary>
+        /// <summary> Shows / refreshes vending machine UI</summary>
         public void ShowUI()
         {
             Console.Clear();
@@ -52,17 +43,34 @@ namespace Automat_Vanzari
             Console.WriteLine();
             Console.Write("Insert a coin: ");
         }
+
+        // ------------------------ State-specific behaviour ------------------------ //
+        // Gets delegated to currentState
+
+        /// <summary> Insert a nickel into the vending machine </summary>
+        public void InsertNickel()            // Request
+        { currentState.NickelInserted(); }    // Handle
+
+        /// <summary> Insert a dime into the vending machine </summary>
+        public void InsertDime()
+        { currentState.DimeInserted(); }
+
+        /// <summary> Insert a quarter into the vending machine </summary>
+        public void InsertQuarter()
+        { currentState.QuarterInserted(); }
+
+        // ------------------------------------------------------------------------- //
     }
 
     /// <summary>
-    /// <para> State interface </para>
+    /// <para> State interface: </para>
     /// <para> All states inherit from it </para>
     /// <para> Concrete states will implement methods defined here </para>
     /// </summary>
     abstract class State
     {
         // Backreference to context
-        // Used by States to transition Context to other States
+        // Used by States to transition through Context to other States
         protected Context currentContext;
 
         /// <summary> Update backreference to Context after transition </summary>
