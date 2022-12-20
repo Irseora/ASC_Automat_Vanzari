@@ -70,7 +70,7 @@ namespace Automat_Vanzari
     abstract class State
     {
         // Backreference to context
-        // Used by States to transition through Context to other States
+        // Used by States to transition
         protected Context currentContext;
 
         /// <summary> Update backreference to Context after transition </summary>
