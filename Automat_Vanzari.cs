@@ -2,17 +2,21 @@ using System;
 
 namespace Automat_Vanzari
 {
-
+    /// <summary>
+    /// <para> Context </para>
+    /// <para> References a concrete state </para>
+    /// <para> Delegates all state-specific work to it, through the state interface </para>
+    /// </summary>
     class Context
     {
         // Reference to current state
-        private State currentState = null;
+        private State currentState;
 
         // Constructor
         public Context(State nextState)
         { Transition(nextState); }
 
-        // Transition: currentState -> nextState
+        /// <summary> Transition to nextState </summary>
         public void Transition(State nextState)
         {
             currentState = nextState;
@@ -29,7 +33,7 @@ namespace Automat_Vanzari
         public void InsertQuarter()
         { currentState.QuarterInserted(); }
 
-        // Show / refresh UI
+        /// <summary> Shows / refreshes UI</summary>
         public void ShowUI()
         {
             Console.Clear();
@@ -50,21 +54,34 @@ namespace Automat_Vanzari
         }
     }
 
+    /// <summary>
+    /// <para> State interface </para>
+    /// <para> All states inherit from it </para>
+    /// <para> Concrete states will implement methods defined here </para>
+    /// </summary>
     abstract class State
     {
         // Backreference to context
-        // Used by States to transition the Context to other States
+        // Used by States to transition Context to other States
         protected Context currentContext;
 
-        // Update backreference to Context
+        /// <summary> Update backreference to Context after transition </summary>
         public void SetContext(Context nextContext)
         { currentContext = nextContext; }
         
+        /// <summary> Insert a nickel </summary>
         public abstract void NickelInserted();
+
+        /// <summary> Insert a dime </summary>
         public abstract void DimeInserted();
+
+        /// <summary> Insert a quarter </summary>
         public abstract void QuarterInserted();
+
+        /// <summary> Show current balance </summary>
         public abstract void ShowBalance();
 
+        /// <summary> Dispense product, then wait for key press </summary>
         public void DispenseProduct()
         { 
             Console.WriteLine();
@@ -73,6 +90,7 @@ namespace Automat_Vanzari
             Console.ReadKey();
         }
 
+        /// <summary> Return change, then wait for key press </summary>
         public void ReturnChange(string coinName)
         { 
             Console.WriteLine();
@@ -82,7 +100,8 @@ namespace Automat_Vanzari
         }
     }
 
-    class StateA : State   // Current balance: 0c
+    /// <summary> Concrete state A: Current balance: 0c </summary>
+    class StateA : State
     {
         public override void ShowBalance()
         { Console.WriteLine("0c"); }
@@ -104,7 +123,7 @@ namespace Automat_Vanzari
             // Dispense merchandise
             DispenseProduct();
 
-            // Return NICKEL in change
+            // Return nickel in change
             ReturnChange("Nickel");
 
             // Transition to A
@@ -112,7 +131,8 @@ namespace Automat_Vanzari
         }
     }
 
-    class StateB : State   // Current balance: 5c
+    /// <summary> Concrete state B: Current balance: 5c </summary>
+    class StateB : State
     {
         public override void ShowBalance()
         { Console.WriteLine("5c"); }
@@ -134,7 +154,7 @@ namespace Automat_Vanzari
             // Dispense merchandise
             DispenseProduct();
 
-            // Return DIME in change
+            // Return dime in change
             ReturnChange("Dime");
 
             // Transition to A
@@ -142,7 +162,8 @@ namespace Automat_Vanzari
         }
     }
 
-    class StateC : State   // Current balance: 10c
+    /// <summary> Concrete state C: Current balance: 10c </summary>
+    class StateC : State
     {
         public override void ShowBalance()
         { Console.WriteLine("10c"); }
@@ -167,10 +188,10 @@ namespace Automat_Vanzari
             // Dispense merchandise
             DispenseProduct();
             
-            // Return NICKEL in change
+            // Return nickel in change
             ReturnChange("Nickel");
 
-            // Return DIME in change
+            // Return dime in change
             ReturnChange("Dime");
 
             // Transition to A
@@ -178,7 +199,8 @@ namespace Automat_Vanzari
         }
     }
 
-    class StateD : State   // Current balance: 15c
+    /// <summary> Concrete state D: Current balance: 15c </summary>
+    class StateD : State
     {
         public override void ShowBalance()
         { Console.WriteLine("15c"); }
@@ -197,7 +219,7 @@ namespace Automat_Vanzari
             // Dispense merchandise
             DispenseProduct();
         
-            // Return NICKEL in change
+            // Return nickel in change
             ReturnChange("Nickel");
 
             // Transition to A
@@ -209,10 +231,10 @@ namespace Automat_Vanzari
             // Dispense merchandise
             DispenseProduct();
 
-            // Return NICKEL in change
+            // Return nickel in change
             ReturnChange("Nickel");
 
-            // Return DIME in change
+            // Return dime in change
             ReturnChange("Dime");
 
             // Transition to B
